@@ -1,28 +1,35 @@
-pipeline{
+pipeline {
   agent any
+
   stages{
-   stage('Stop Old Container'){
+   
+    stage('Stop old contaioner'){
       steps{
         bat 'docker rm -f company-1website || exit 0'
       }
     }
-    stage('Checkout Code'){
-      steps{
-      echo 'Pulling code from GitHub'
+   
+    stage('checkout code') {
+      steps {
+        echo 'pulling code from github'
         checkout scm
+      }
     }
-  }
-    stage('Build Docker Image'){
+
+    stage('build docker image'){
       steps{
         echo 'Building Docker Image'
         bat 'docker build -t company-1website .'
       }
     }
-     stage('Run Docker Container'){
+    stage('Run Docker container'){
       steps{
         echo 'Running Docker Container'
-        bat 'docker run -d -p 8080:80 company-1website .'
+        bat 'docker run -d -p 8070:80 company-1website'
       }
     }
+   
+   
+   
   }
 }
